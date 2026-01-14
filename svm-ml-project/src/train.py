@@ -7,7 +7,7 @@ import joblib
 import os
 
 # Load dataset
-data = pd.read_csv("data/dataset.csv")
+data = pd.read_csv("data/colombo_flood_with_probabilities.csv")
 
 # Features and target
 X = data.iloc[:, :-1]
@@ -48,3 +48,4 @@ os.makedirs("artifacts", exist_ok=True)
 with open("artifacts/metrics.txt", "w") as f:
     f.write(f"SVM Accuracy: {svm_acc:.4f}\n")
     f.write(f"Logistic Regression Accuracy: {logreg_acc:.4f}\n")
+
