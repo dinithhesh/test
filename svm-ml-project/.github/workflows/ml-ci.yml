@@ -2,11 +2,10 @@ name: ML CI-CD Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: ["**"]
   pull_request:
-    branches:
-      - main
+    branches: ["**"]
+  workflow_dispatch:
 
 jobs:
   ci:
@@ -47,3 +46,4 @@ jobs:
 
       - name: Deployment success
         run: echo "CI/CD pipeline completed 🚀"
+
