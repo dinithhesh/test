@@ -1,29 +1,47 @@
-name: ML CI
+name: ML CI-CD Pipeline
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build:
+  ci:
+    name: Continuous Integration
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Train model
+        run: python src/train.py
+
       - name: Run tests
         run: pytest tests/
+
+  cd:
+    name: Continuous Deployment
+    needs: ci   # 🚨 runs ONLY if CI passes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: |
+          docker build -t svm-ml-project:latest .
+
+      - name: Docker image built successfully
+        run: echo "Docker image ready for deployment 🚀"
