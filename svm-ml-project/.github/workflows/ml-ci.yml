@@ -2,8 +2,11 @@ name: ML CI-CD Pipeline
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'svm-ml-project/**'
+  pull_request:
+    paths:
+      - 'svm-ml-project/**'
 
 jobs:
   ci:
@@ -45,3 +48,4 @@ jobs:
 
       - name: Docker image built successfully
         run: echo "Docker image ready for deployment 🚀"
+
